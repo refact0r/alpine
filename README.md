@@ -38,8 +38,8 @@ enabling weather and stocks
 2. get your weather API key at https://home.openweathermap.org/api_keys
 3. create an account for [Alpaca](https://alpaca.markets) or [FinancialModelingPrep](https://site.financialmodelingprep.com/)
 
-   Alpaca will get % changes for the 9 stocks specified in the config, while FinancialModelingPrep will get the 9 most active stocks of the day
+   using Alpaca will get % changes for the 9 stocks specified in the config, while using FinancialModelingPrep will get the 9 most active stocks of the day
 4. get your [Alpaca key and secret](https://app.alpaca.markets/paper/dashboard/overview) (far right) or [FinancialModelingPrep API key](https://site.financialmodelingprep.com/developer/docs/api-keys)
 5. open alpine and click in the bottom right to open the config editor
-6. paste your api keys into the corresponding spots on the config
+6. paste your api keys into the corresponding spots on the config, make sure to change `stocks.source` to `fmp` if using FinancialModelingPrep 
 7. you can also edit settings like weather location, links, and stocks
