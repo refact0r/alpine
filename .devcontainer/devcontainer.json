@@ -1,0 +1,4 @@
+// See https://containers.dev/implementors/json_reference/ for configuration reference
+{
+    "forwardPorts": [5713]
+}

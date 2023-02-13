@@ -1,0 +1,14 @@
+{
+    "manifest_version": 2,
+    "name": "alpine",
+    "version": "1.0.0",
+    "author": "refact0r",
+    "description": "a startpage",
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    },
+    "chrome_settings_overrides": {
+        "homepage": "index.html"
+    },
+    "browser_specific_settings": {}
+}
