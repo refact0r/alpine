@@ -30,7 +30,6 @@ export async function getStocks(config) {
         const prevClose = stock.prevDailyBar.c
         const lastPrice = stock.dailyBar.c
         const changePercent = ((lastPrice - prevClose) / prevClose) * 100
-        console.log(ticker, prevClose, lastPrice, changePercent)
         ret.push({
             symbol: ticker,
             price: lastPrice,

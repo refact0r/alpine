@@ -13,8 +13,11 @@
 
     export let config
 
+    let showConfig = false
+    let configString = JSON.stringify($config, undefined, 4)
+
     let banners = [banner0, banner1]
-    let banner = banners[$config.banner]
+    $: banner = banners[$config.banner]
     let nextBanner =
         $config.banner + 1 >= banners.length ? 0 : $config.banner + 1
     $config.banner = nextBanner
@@ -35,7 +38,7 @@
     let weather = []
     let stocks = []
 
-    onMount(async () => {
+    function fetchData() {
         getWeather($config).then((data) => {
             weather = data
         })
@@ -43,7 +46,25 @@
         getAlpaca($config).then((data) => {
             stocks = data
         })
+    }
+
+    onMount(() => {
+        fetchData()
     })
+
+    function toggleConfig() {
+        showConfig = !showConfig
+    }
+
+    function updateConfig() {
+        try {
+            $config = JSON.parse(configString)
+            configString = JSON.stringify($config, undefined, 4)
+            fetchData()
+        } catch (e) {
+            console.error(e)
+        }
+    }
 </script>
 
 <main>
@@ -51,7 +72,6 @@
         <div class="banner box">
             <img class="banner-img" src={banner} alt="banner" />
         </div>
-
         <div class="widgets">
             <div class="time box">{time}</div>
             <div class="date box">
@@ -104,14 +124,27 @@
             </div>
         </div>
 
-        {#each $config.links as group}
-            <div class="links box">
+        {#each $config.links as group, index}
+            <div class="links box" style={`grid-column: ${index + 1}`}>
                 {#each group as link}
                     <a class="link" href={link.url}>{link.name}</a>
                 {/each}
             </div>
         {/each}
+
+        {#if showConfig}
+            <div class="config box">
+                <textarea
+                    class="config-textarea"
+                    bind:value={configString}
+                    on:change={updateConfig}
+                />
+            </div>
+        {/if}
     </div>
+    <button class="config-button" on:click={toggleConfig}>
+        {showConfig ? 'close config' : 'open config'}
+    </button>
 </main>
 
 <style>
@@ -132,7 +165,8 @@
     }
 
     .widgets {
-        grid-column: 1 / -1;
+        grid-column: 1 / 5;
+        grid-row: 2;
         display: flex;
         justify-content: center;
         gap: 20px;
@@ -153,7 +187,8 @@
 
     .banner {
         height: 200px;
-        grid-column: 1 / -1;
+        grid-column: 1 / 5;
+        grid-row: 1;
         z-index: 10;
         box-shadow: 0px 0px 20px 0px #16191d;
     }
@@ -282,5 +317,43 @@
 
     .link:active {
         transform: scale(0.95);
+    }
+
+    .config-button {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        background: none;
+        opacity: 0;
+        padding: 20px;
+        transform: scale(1);
+        transition: 0.05s linear;
+    }
+
+    .config-button:hover {
+        opacity: 1;
+    }
+
+    .config-button:active {
+        transform: scale(0.95);
+    }
+
+    .config {
+        grid-column: 1 / 5;
+        grid-row: 2 / 4;
+        display: flex;
+        z-index: 20;
+        padding: 40px;
+    }
+
+    .config-textarea {
+        width: 100%;
+        height: 100%;
+        background: var(--background-3);
+        border: none;
+        border-radius: 10px;
+        padding: 20px;
+        color: inherit;
+        font: inherit;
     }
 </style>

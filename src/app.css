@@ -36,6 +36,16 @@ body {
     height: 100%;
 }
 
+button {
+    border: none;
+    font: inherit;
+    color: inherit;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
 .box {
     background-color: var(--background-2);
     border-radius: 20px;
