@@ -11,6 +11,7 @@ const defaultConfig = {
         units: 'imperial'
     },
     stocks: {
+        source: 'alpaca',
         fmpApiKey: '',
         alpacaKeyId: '',
         alpacaSecretKey: '',

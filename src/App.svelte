@@ -3,7 +3,7 @@
     import { fade } from 'svelte/transition'
     import { twelveHour, twoDigit } from './lib/js/utils.js'
     import { getWeather } from './lib/js/weather.js'
-    // import { getStocks as getFMP } from './lib/js/stocks-fmp.js'
+    import { getStocks as getFMP } from './lib/js/stocks-fmp.js'
     import { getStocks as getAlpaca } from './lib/js/stocks-alpaca.js'
 
     // @ts-ignore
@@ -42,10 +42,15 @@
         getWeather($config).then((data) => {
             weather = data
         })
-        // getFMP($config)
-        getAlpaca($config).then((data) => {
-            stocks = data
-        })
+        if ($config.stocks.source === 'fmp') {
+            getFMP($config).then((data) => {
+                stocks = data
+            })
+        } else if ($config.stocks.source === 'alpaca') {
+            getAlpaca($config).then((data) => {
+                stocks = data
+            })
+        }
     }
 
     onMount(() => {
