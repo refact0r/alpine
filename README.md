@@ -6,7 +6,7 @@ A startpage with weather and stock market widgets.
 - time and date
 - current weather and 12hr forecast using [OpenWeatherMap](https://openweathermap.org/api)
 - stock market tracker using [Alpaca](https://alpaca.markets) or [FinancialModelingPrep](https://site.financialmodelingprep.com/)
-- 16 links
+- 16 customizable links
 
 ![image](https://user-images.githubusercontent.com/34758569/218351845-fad3989f-3662-4f93-b63b-8955e405596a.png)
 
