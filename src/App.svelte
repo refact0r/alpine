@@ -276,7 +276,7 @@
     }
 
     .link:hover {
-        color: var(--font-hover);
+        color: var(--font-bright);
         transform: scale(1.05);
     }
 
