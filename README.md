@@ -1,6 +1,6 @@
 # alpine
 
-A startpage with weather and stock market widgets.
+A clean startpage with weather and stock market widgets.
 
 ## features
 - time and date
