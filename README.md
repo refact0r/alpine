@@ -1,6 +1,6 @@
 # alpine
 
-A startpage with weather and stock market widgets.
+A clean browser startpage with weather and stock market widgets.
 
 ## features
 
