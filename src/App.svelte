@@ -9,14 +9,44 @@
     // @ts-ignore
     import banner0 from './assets/banners/banner0.jpg?format=avif&w=5000&h=700'
     // @ts-ignore
-    import banner1 from './assets/banners/banner1.jpg?format=avif&w=5000&h=700'
+    import banner1 from './assets/banners/banner1.jpg?format=avif&w=6269&h=880&quality=60'
+    // @ts-ignore
+    import banner2 from './assets/banners/banner2.jpg?format=avif&w=10633&h=1400'
+    // @ts-ignore
+    import banner3 from './assets/banners/banner3.jpg?format=avif&w=3871&h=540&quality=60'
+    // @ts-ignore
+    import banner4 from './assets/banners/banner4.jpg?format=avif&w=5568&h=780&quality=75'
+    // @ts-ignore
+    import banner5 from './assets/banners/banner5.jpg?format=avif&w=4089&h=570&quality=60'
+    // @ts-ignore
+    import banner6 from './assets/banners/banner6.jpg?format=avif&w=6000&h=840'
+    // @ts-ignore
+    import banner7 from './assets/banners/banner7.jpg?format=avif&w=4134&h=580'
+    // @ts-ignore
+    import banner8 from './assets/banners/banner8.jpg?format=avif&w=4426&h=620'
+    // @ts-ignore
+    import banner9 from './assets/banners/banner9.jpg?format=avif&w=7769&h=1090&quality=60'
+    // @ts-ignore
+    import banner10 from './assets/banners/banner10.jpg?format=avif&w=4599&h=640'
 
     export let config
 
     let showConfig = false
     let configString = JSON.stringify($config, undefined, 4)
 
-    let banners = [banner0, banner1]
+    let banners = [
+        banner0,
+        banner1,
+        banner2,
+        banner3,
+        banner4,
+        banner5,
+        banner6,
+        banner7,
+        banner8,
+        banner9,
+        banner10
+    ]
     $: banner = banners[$config.banner]
     let nextBanner =
         $config.banner + 1 >= banners.length ? 0 : $config.banner + 1
