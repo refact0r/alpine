@@ -169,7 +169,7 @@
         {#each $config.links as group, index}
             <div class="links box" style={`grid-column: ${index + 1}`}>
                 {#each group as link}
-                    <a class="link">{link.name}</a>
+                    <a class="link" href={link.url}>{link.name}</a>
                 {/each}
             </div>
         {/each}
