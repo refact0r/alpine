@@ -15,7 +15,7 @@ export async function getWeather(config) {
         console.warn(
             'Failed to fetch from OpenWeatherMap. Check your API key and location.'
         )
-        return
+        return []
     }
 
     const forecast = await res[0].json()

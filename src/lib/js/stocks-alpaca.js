@@ -18,7 +18,7 @@ export async function getStocks(config) {
         console.warn(
             'Failed to fetch from Alpaca. Check your API key and secret.'
         )
-        return
+        return []
     }
 
     const data = await res.json()

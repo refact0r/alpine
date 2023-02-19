@@ -10,7 +10,7 @@ export async function getStocks(config) {
         console.warn(
             'Failed to fetch from Financial Modeling Prep. Check your API key.'
         )
-        return
+        return []
     }
 
     const json = await res.json()
