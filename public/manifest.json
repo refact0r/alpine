@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "alpine",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": "refact0r",
     "description": "a startpage",
     "chrome_url_overrides": {
