@@ -55,7 +55,7 @@
     let d = new Date()
     $: hours = twelveHour(d.getHours())
     $: min = twoDigit(d.getMinutes())
-    // $: sec = twoDigit(d.getSeconds())
+    $: sec = twoDigit(d.getSeconds())
     $: time = `${hours}:${min}`
     $: date = d.getDate()
     $: month = d.toLocaleString('default', { month: 'long' }).toLowerCase()
@@ -108,7 +108,10 @@
             <img class="banner-img" src={banner} alt="banner" />
         </div>
         <div class="widgets">
-            <div class="time box">{time}</div>
+            <div class="time box">
+                <div class="time-text">{time}</div>
+                <div class="seconds" style:width={(sec / 60) * 100 + '%'} />
+            </div>
             <div class="date box">
                 <div class="month-day">
                     <div class="day">{day}</div>
@@ -117,52 +120,56 @@
                 <div class="date-number">{date}</div>
             </div>
             <div class="weather box">
-                {#each weather as block}
-                    <div
-                        class="weather-block"
-                        transition:fade={{ duration: 200 }}
-                    >
-                        <div class="weather-time">{block.time}</div>
-                        <img
-                            class="weather-icon"
-                            src={`/weather-icons/${block.icon}.svg`}
-                            title={block.description}
-                            alt={block.description}
-                        />
-                        <div class="weather-temp">&nbsp;{block.temp}°</div>
-                    </div>
-                {/each}
+                {#if weather.length > 0}
+                    {#each weather as block}
+                        <div
+                            class="weather-block"
+                            transition:fade={{ duration: 200 }}
+                        >
+                            <div class="weather-time">{block.time}</div>
+                            <img
+                                class="weather-icon"
+                                src={`/weather-icons/${block.icon}.svg`}
+                                title={block.description}
+                                alt={block.description}
+                            />
+                            <div class="weather-temp">&nbsp;{block.temp}°</div>
+                        </div>
+                    {/each}
+                {/if}
             </div>
             <div class="stocks box">
-                {#each stocks as column}
-                    <div
-                        class="stocks-column"
-                        transition:fade={{ duration: 200 }}
-                    >
-                        {#each column as stock}
-                            <div class="stock">
-                                <div class="symbol">{stock.symbol}</div>
-                                <div
-                                    class={'percent' +
-                                        (stock.changesPercentage > 0
-                                            ? ' positive'
-                                            : stock.changesPercentage < 0
-                                            ? ' negative'
-                                            : '')}
-                                >
-                                    {stock.changesPercentage.toFixed(2)}
+                {#if stocks.length > 0}
+                    {#each stocks as column}
+                        <div
+                            class="stocks-column"
+                            transition:fade={{ duration: 200 }}
+                        >
+                            {#each column as stock}
+                                <div class="stock">
+                                    <div class="symbol">{stock.symbol}</div>
+                                    <div
+                                        class={'percent' +
+                                            (stock.changesPercentage > 0
+                                                ? ' positive'
+                                                : stock.changesPercentage < 0
+                                                ? ' negative'
+                                                : '')}
+                                    >
+                                        {stock.changesPercentage.toFixed(2)}
+                                    </div>
                                 </div>
-                            </div>
-                        {/each}
-                    </div>
-                {/each}
+                            {/each}
+                        </div>
+                    {/each}
+                {/if}
             </div>
         </div>
 
         {#each $config.links as group, index}
             <div class="links box" style={`grid-column: ${index + 1}`}>
                 {#each group as link}
-                    <a class="link" href={link.url}>{link.name}</a>
+                    <a class="link">{link.name}</a>
                 {/each}
             </div>
         {/each}
@@ -225,7 +232,7 @@
         grid-column: 1 / 5;
         grid-row: 1;
         z-index: 10;
-        box-shadow: 0px 0px 20px 0px #16191d;
+        box-shadow: 0px 0px 20px 0px var(--background-1);
     }
 
     .banner-img {
@@ -235,16 +242,30 @@
     }
 
     .time {
+        display: flex;
+        flex-direction: column;
+        padding: 0 40px;
+        box-shadow: 0px 0px 20px 0px var(--background-1);
+    }
+
+    .time-text {
         font-size: 2.8em;
         font-weight: 300;
-        padding: 0 40px;
-        box-shadow: 0px 0px 20px 0px #16191d;
+        line-height: 48px;
+    }
+
+    .seconds {
+        align-self: flex-start;
+        width: 0%;
+        height: 1.5px;
+        background-color: var(--font-color);
+        transition: width 0.2s ease;
     }
 
     .date {
         display: flex;
         padding: 0 40px;
-        box-shadow: 0px 0px 20px 0px #16191d;
+        box-shadow: 0px 0px 20px 0px var(--background-1);
     }
 
     .month-day {
@@ -261,7 +282,7 @@
         padding: 20px 40px;
         gap: 20px;
         width: 460px;
-        box-shadow: 0px 0px 20px 0px #16191d;
+        box-shadow: 0px 0px 20px 0px var(--background-1);
     }
 
     .weather-block {
@@ -289,7 +310,7 @@
         gap: 40px;
         padding: 0 40px;
         width: 500px;
-        box-shadow: 0px 0px 20px 0px #16191d;
+        box-shadow: 0px 0px 20px 0px var(--background-1);
     }
 
     .stocks-column {
@@ -342,16 +363,44 @@
         color: var(--font-color);
         text-decoration: none;
         transform: scale(1);
-        transition: 0.05s linear;
+        transition: color 0.2s ease;
     }
 
     .link:hover {
         color: var(--font-bright);
-        transform: scale(1.05);
+        /* text-shadow: 0px 0px 20px var(--font-color); */
+    }
+
+    .link::after {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: -2px;
+        /* left: 50%; */
+        right: 0;
+        width: 0%;
+        height: 1.5px;
+        background-color: var(--font-color);
+        transition: width 0.2s ease, background-color 0.2s ease,
+            height 0.1s ease;
+        /* transform: translateX(-50%); */
+        z-index: -1;
+    }
+
+    .link:hover::after {
+        width: 100%;
+        right: auto;
+        left: 0;
+        background-color: var(--font-bright);
     }
 
     .link:active {
-        transform: scale(0.95);
+        /* transform: scale(0.95); */
+        color: var(--background-2);
+    }
+
+    .link:active::after {
+        height: 110%;
     }
 
     .config-button {
