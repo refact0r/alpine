@@ -17,13 +17,13 @@ matching firefox color theme: [firefox color](https://color.firefox.com/?theme=X
 
 ## usage
 
-firefox
+### firefox installation
 
 1. download the .xpi extension file from the latest release
 2. go to `about:addons` in firefox, click the gear icon in the top right
 3. click "Install Add-on from File" and select the .xpi file
 
-chrome
+### chrome installation
 
 1. clone the repo
 2. delete this section from `public/manifest.json`:
@@ -39,7 +39,7 @@ chrome
 5. go to `chrome://extensions/` in chrome and enable developer mode in the top right
 6. click "Load Unpacked" in the top left and select the `/dist` folder
 
-enabling weather and stocks
+### enabling weather and stocks
 
 1. create an account at <https://openweathermap.org/api>
 2. get your weather API key at <https://home.openweathermap.org/api_keys>
